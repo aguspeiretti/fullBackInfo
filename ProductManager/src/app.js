@@ -81,4 +81,46 @@ const products = productManager.getProducts();
 
 // export default __dirname;
 
-// minuto 1.04
+//ahora con esto creado nos vamos a app.js e importamos __dirname
+
+import __dirname from "./utils.js";
+
+// vamos a buscar el app.use(express.static(`${__dirname}/public`)) y la vamos a cambiar por esto
+
+//MIDELWARE MULTER nos va a servir para cargar imagenes
+
+// lo instalamos con npm install multer
+
+// vamos a crear la carpeta services
+
+// dentro vamos a crear el uploader.js
+
+// importamos multer con import multer from "multer"
+
+// importamos import __dirname from "./utils.js";
+
+//decido donde voy a almacenar mis archivos
+
+//const storage = multer.diskStorage({
+//   destination:function(rec,file,cb){
+
+//   cb(null,`${__dirname}/public/img`)
+//   },
+//  filname:function(rec,file,cb){
+
+//     cb(null,`${date.now()}-${file.originalname}`)
+//     }
+// })
+
+// y luego vamos a exportar
+
+// export const uploader = multer({Storage})
+
+//cuando vamos a subir una imagen ya estamos hablando de un flujo de datos
+//por lo que no podemos enviarloen un json entonces al form
+//le tenemos que decir que envie los datos en formData
+
+// entonces al form vamos a agregarle enctype="multipart/form-data"
+
+//vamos a ir a mi products.router.js vamos a importar el uploader y en router.post("/,uploader.single("image"),(req,res){}")
+//lo que va dentro de uploader.single() tiene q ser igual a lo q envio por el formulario
