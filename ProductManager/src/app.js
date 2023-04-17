@@ -29,51 +29,56 @@ const productManager = new ProductManager();
 const products = productManager.getProducts();
 // utilizamos la funcion de nuestro manager para traer los productos del archivo
 
-let productoPrueba = [
-  {
-    titulo: "hola",
-    contenido: "chau",
-  },
-];
+// EXPRESS ROUTER
 
-app.get(`/products/`, async (req, res) => {
-  //busco los productos en la db y respondo con ellos
-  const allProducts = await products; // creo una constante q guarde los productos q traigo con el pmanager
-  res.send(allProducts); //envio o respondo con los productos
-});
+//nos va a servir para separar endpoints que tengan en comun una entidad
 
-app.post(`/products/`, async (req, res) => {
-  try {
-    const allProducts = await products; // creo una constante q guarde los productos q traigo con el pmanager
-    const newContent = req.body; // el body q le voy a pasar en postman va a ser = a el archivo a pushear
-    //agregar productos a mi archivo
-    allProducts.push(newContent); //  envio el objeto a mi array
-    res.send({ status: "succes", message: "product posted" });
-  } catch (error) {
-    console.log(error);
-  }
-});
+//creamos una carpeta routes
+//creamos un archivo en el que vamos a colocar los endpoints ej products.router.js
 
-app.put(`/products/:pId`, async (req, res) => {
-  //modificar productos en mi archivo
-  const allProducts = await products;
-  const id = req.params.pId; //->guardo en una constante el id del prod q quiero modificar
-  const newContent = req.body; // el body q le voy a pasar en postman va a ser = a el archivo a pushear para modificar
-  const productIndex = allProducts.findIndex((p) => p.id == id);
-  if (productIndex === -1) {
-    return res.status(404).send({ status: "error", error: "not found" });
-  }
-  allProducts[productIndex] = newContent;
-  res.send({ status: "succes", message: "product updated" });
-});
-app.delete("/products/:pId", async (req, res) => {
-  //eliminar productos en mi archivo
-  const allProducts = await products;
-  const id = req.params.pId; //->guardo en una constante el id del prod q quiero modificar
-  const productIndex = allProducts.findIndex((p) => p.id == id);
-  if (productIndex === -1) {
-    return res.status(404).send({ status: "error", error: "not found" });
-  }
-  allProducts.splice(productIndex, 1);
-  res.send({ status: "succes", message: "product deleted" });
-});
+// importamos route de express
+
+// import { Router } from "express";
+
+//inicializo con const router = Router()
+
+//exporto el router export default router
+
+//importe el router en mi app.js
+
+// import ProductsRouter from "./routes/products.router.js";
+
+//en el router en vez de poner app.get app,put vamos a cambiar todos por router que es la constante q creamos arriba
+
+// inicializo app.use(express.urlencoded({extended:true}))
+
+//app.use("/products", ProductsRouter)-> cuando te llegue peticion de products lo redirigis a ProductRouter
+
+// una vez echo esto quitamos la palabra del router que tienen en comun para que no se repita /products/products
+
+//SERVICIO DE ARCHIVOS ESTATICOS
+
+//PARA PODER CARGAR ARCHIVOS
+
+//en la carpeta src voy a crear la carpeta public
+//aca voy a poner todas las imagenes ya sean cargadas por mi o por el usuario que quiero que se puedan acceder publicamente
+
+//para esto voy a agregar app.use(express.static("./src/public"))-> y le vamos a pasar la ruta en la que vamos a permitir acceder
+
+//puedo crear un archivo index.html para virtualizarlo y por ejemplo puedo agregar un formulario para ingresar los productos o lo que quiera
+
+//creamos un servicio de ruta absoluta
+
+//creamos un archivo utils.js a la altura de app.js y pegamos dentro el codigo
+
+// import {fileURLToPath} from 'url';
+
+// import { dirname } from 'path';
+
+// const __filename = fileURLToPath(import.meta.url);
+
+// const __dirname = dirname(__filename);
+
+// export default __dirname;
+
+// minuto 1.04
